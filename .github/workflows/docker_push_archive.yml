@@ -1,0 +1,29 @@
+name: CI/CD Pipeline to Docker Hub Archive Location
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build Test and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install
+        run: make install
+      - name: Lint
+        run: make lint
+      - name: Format
+        run: make format
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME_PAUL }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN_PAUL }}
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME_PAUL }}/world-cup-predictor-archive:latest
