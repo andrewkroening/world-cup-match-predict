@@ -11,9 +11,9 @@ def spi_winner(spi_dist_df, team1name, team2name):
         perc_win = round(team1_wins / spi_dist_df.shape[0] * 100, 2)
         winner = (
             "str(team1name)
-            + " wins in "
+            + " has a "
             + str(perc_win)
-            + "% of the simulations"
+            + "% of winning"
         )
     elif team1_wins == team2_wins:
         winner = (
@@ -23,9 +23,9 @@ def spi_winner(spi_dist_df, team1name, team2name):
         perc_win = round(team2_wins / spi_dist_df.shape[0] * 100, 2)
         winner = (
             "str(team2name)
-            + " wins in "
+            + " has a "
             + str(perc_win)
-            + "% of the simulations"
+            + "% of winning"
         )
 
     return winner
