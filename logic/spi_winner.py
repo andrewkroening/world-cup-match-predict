@@ -10,22 +10,20 @@ def spi_winner(spi_dist_df, team1name, team2name):
     if team1_wins > team2_wins:
         perc_win = round(team1_wins / spi_dist_df.shape[0] * 100, 2)
         winner = (
-            "The winner is "
-            + str(team1name)
-            + " with "
+            "str(team1name)
+            + " wins in "
             + str(perc_win)
             + "% of the simulations"
         )
     elif team1_wins == team2_wins:
         winner = (
-            "The match is a draw based on 5000 simulations. We don't believe it either."
+            "The match is a draw based on 1000 simulations. We don't believe it either."
         )
     else:
         perc_win = round(team2_wins / spi_dist_df.shape[0] * 100, 2)
         winner = (
-            "The winner is "
-            + str(team2name)
-            + " with "
+            "str(team2name)
+            + " wins in "
             + str(perc_win)
             + "% of the simulations"
         )
