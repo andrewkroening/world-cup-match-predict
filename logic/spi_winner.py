@@ -10,7 +10,7 @@ def spi_winner(spi_dist_df, team1name, team2name):
     if team1_wins > team2_wins:
         perc_win = round(team1_wins / spi_dist_df.shape[0] * 100, 2)
         winner = (
-            "str(team1name)
+            str(team1name)
             + " has a "
             + str(perc_win)
             + "% of winning"
@@ -22,7 +22,7 @@ def spi_winner(spi_dist_df, team1name, team2name):
     else:
         perc_win = round(team2_wins / spi_dist_df.shape[0] * 100, 2)
         winner = (
-            "str(team2name)
+            str(team2name)
             + " has a "
             + str(perc_win)
             + "% of winning"
