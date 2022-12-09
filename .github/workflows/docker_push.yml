@@ -27,3 +27,14 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/world-cup-predictor:latest
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME_PAUL }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN_PAUL }}
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME_PAUL }}/world-cup-predictor-archive:latest
