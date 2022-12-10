@@ -23,11 +23,13 @@ def spi_plots(spi_dist_df):
     # Create the plots
     spi_plot = (
         alt.Chart(spi_dist_df)
-        .transform_fold(["team1", "team2"], as_=["Team", "Measurement"])
+        .transform_fold(
+            ["team1", "team2"], as_=["Team", "SPI Simulated Scores (Binned)"]
+        )
         .mark_bar(opacity=0.2, binSpacing=0)
         .encode(
             alt.X(
-                "Measurement:Q",
+                "SPI Simulated Scores (Binned):Q",
                 bin=alt.Bin(maxbins=100),
                 title="SPI Simulated Scores (Binned)",
             ),
