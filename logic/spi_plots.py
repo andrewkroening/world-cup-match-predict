@@ -1,7 +1,5 @@
 """This module plots the SPI distributions for the data and teams selected."""
 
-import pandas as pd
-import numpy as np
 import altair as alt
 
 
@@ -25,12 +23,16 @@ def spi_plots(spi_dist_df):
     # Create the plots
     spi_plot = (
         alt.Chart(spi_dist_df)
-        .transform_fold(["team1", "team2"], as_=["Experiment", "Measurement"])
+        .transform_fold(["team1", "team2"], as_=["Team", "Measurement"])
         .mark_bar(opacity=0.2, binSpacing=0)
         .encode(
-            alt.X("Measurement:Q", bin=alt.Bin(maxbins=100)),
+            alt.X(
+                "Measurement:Q",
+                bin=alt.Bin(maxbins=100),
+                title="SPI Simulated Scores (Binned)",
+            ),
             alt.Y("count()", stack=None),
-            alt.Color("Experiment:N"),
+            alt.Color("Team:N"),
         )
     )
 

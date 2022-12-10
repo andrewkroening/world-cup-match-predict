@@ -3,9 +3,9 @@ install:
 		pip install -r requirements.txt
 
 lint:
-	pylint --disable=R,C --extension-pkg-whitelist='pydantic' streamlit_app.py
+	pylint --disable=R,C,missing-timeout,redefined-builtin --extension-pkg-whitelist='pydantic' ./logic/*.py streamlit_app.py
 
 format:
-	black *.py
+	black ./logic/*.py *.py
 
 all: install lint format
