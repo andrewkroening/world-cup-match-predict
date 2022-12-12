@@ -49,6 +49,10 @@ st.caption(
     "This tool will help you predict the outcome of the 2022 FIFA World Cup using Soccer Power Index Rankings"
 )
 
+st.caption(
+    "Although built for the 2022 World Cup, it will work for any international match."
+)
+
 
 # add a sidebar with upcoming matches
 
