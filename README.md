@@ -25,23 +25,27 @@ We are accessing data from two locations:
 
 Four modules support the app:
 
-* `scraper.py` - A web scraper to get today's games from ESPN (this was easier than other scrappy/beautiful soup options we explored). We pull the JSON data behind the scoreboard web page and then query for a specific location where the score data is scored. That is transformed slightly as it is ingested into a data frame and passed to the main app.
+* [`scraper.py`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/logic/scraper.py) - A web scraper to get today's games from ESPN (this was easier than other scrappy/beautiful soup options we explored). We pull the JSON data behind the scoreboard web page and then query for a specific location where the score data is scored. That is transformed slightly as it is ingested into a data frame and passed to the main app.
 
-* `spi_dist.py` - A generator for 1000 matches between two teams. It uses the SPI dataset as its reference and calculates the SPI for each team over the 1000-match range. We introduced a variance factor of 25 to the simulations, which is pretty significant given the range of SPI values is 0-100. This is a good amount of variance because it allows for more upsets or surprises. The simulator tends to be 'less sure' than other popular prediction tools.
+* [`spi_dist.py`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/logic/spi_dist.py) - A generator for 1000 matches between two teams. It uses the SPI dataset as its reference and calculates the SPI for each team over the 1000-match range. We introduced a variance factor of 25 to the simulations, which is pretty significant given the range of SPI values is 0-100. This is a good amount of variance because it allows for more upsets or surprises. The simulator tends to be 'less sure' than other popular prediction tools. This is also why running a simulation multiple times may result in a different result.
 
-* `spi_plots.py` - A plot generator that shows a layered histogram of the simulation outcomes. This tool is relatively straightforward, it just needs the outputs from `spi_dist.py`, and it will do the necessary transformations to get to the plot outcome. We used Altair for this function and are generally pleased, although Altair has a few limitations in what we could and could not customize.
+* [`spi_plots.py`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/logic/spi_plots.py) - A plot generator that shows a layered histogram of the simulation outcomes. This tool is relatively straightforward, it just needs the outputs from `spi_dist.py`, and it will do the necessary transformations to get to the plot outcome. We used Altair for this function and are generally pleased, although Altair has a few limitations in what we could and could not customize.
 
-* `spi_winner` - A logic tool that returns a string describing the simulation. It uses the `spi_dist.py` output to determine which team won which percentage of the simulations and then returns the most probable winner.
+* [`spi_winner`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/logic/spi_winner.py) - A logic tool that returns a string describing the simulation. It uses the `spi_dist.py` output to determine which team won which percentage of the simulations and then returns the most probable winner.
 
 #### Main App
 
-`streamlit_app.py`
+[`streamlit_app.py`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/streamlit_app.py) is the logic module that we use to bring everything together. This application file is what renders the Streamlit user interface and sets up and runs the simulations requested. Because of the nature of Streamlit's low-code requirements and the outsourcing we do to the logic modules, this app is relatively short. For example, the entire sidebar on the app landing is just a few lines of code in this file.
+
+This file is also the one that the Streamlit Cloud service looks for when building the web app interface. It sees the accompanying [`requirements.txt`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/requirements.txt) and uses that file to build a container. The Streamlit Cloud service does not need the Dockerfile we constructed; that is for a different purpose.
 
 #### Deployment
 
-We use GitHub actions to push our app to two places:
+This app is deployed through two channels. First, the Streamlit Cloud pathway:
 
-* It is deployed through the [Streamlit service](https://tons-of-fun.streamlit.app) and can be consumed directly there
+* The [Streamlit Cloud service](https://tons-of-fun.streamlit.app) is hosting this app, which is where we recommend you use it. This free service has some limitations, but it is free, and short of taking a nap once in a while if no one visits, it will keep running in perpetuity. The service is linked to this repository and will see updates to [`streamlit_app.py`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/streamlit_app.py) or [`requirements.txt`](https://github.com/andrewkroening/tons-of-fun/blob/c3dec07be4177a4f93a8349a6353d7ad8a01c586/requirements.txt) and then rebuild the container. It is able to be used by the eneral public.
+
+As a capability exercise, we also used a more traditional deployment pipeline with the app. We do this as an example, because there may be occasions where you want to use Streamlit, but not make the app open to the public. Here's how that pathway is constructed:
 
 * We also build a Dockerfile that is automatically pushed to Docker Hub, then on to Azure where it is sent to a Container Instance and a Web App
 
