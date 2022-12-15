@@ -5,7 +5,7 @@
 
 #### Overview
 
-This was a project for data engineering, not a statistics class. As such, the predictions are engineered to be somewhat serious, but we really used this opportunity to exercise several other things and try some new stuff. Check out the youtube demo here.
+This was a project for data engineering, not a statistics class. As such, the predictions are engineered to be somewhat serious, but we really used this opportunity to exercise several other things and try some new stuff. Check out the [youtube demo here](https://youtu.be/orqz1Hb74v8).
 
 It's important to point out that this tool will work for matches outside the 2022 World Cup. If you want to simulate any matches, navigate to the [Streamlit App Landing](https://tons-of-fun.streamlit.app/) and run your own simulations!
 
