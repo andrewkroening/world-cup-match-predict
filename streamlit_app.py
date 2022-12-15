@@ -138,6 +138,6 @@ st.markdown(
     "For more info on the code behind this tool, check out the [GitHub repo](https://github.com/andrewkroening/tons-of-fun)"
 )
 
-st.caption("Access the youtube video here")
+st.markdown("[Watch the YouTube video demonstration of this app](https://youtu.be/orqz1Hb74v8)")
 
 st.caption("Brought to you by 4 dudes just tryna make it")
